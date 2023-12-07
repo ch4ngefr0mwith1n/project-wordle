@@ -4,49 +4,25 @@ import {checkGuess} from "../../game-helpers";
 
 function Guess({ guess, answer }) {
     const result = checkGuess(guess, answer);
-
-
-    const letters = getLetters(result)
-    const statuses = getStatuses(result)
-
     return (
-      // <p class="guess">
-      //     {range(5).map((num)=>(
-      //         <span className="cell" key={num}>
-      //             {guess != null ? guess[num] : undefined}
-      //         </span>
-      //     ))}
-      // </p>
       <p className="guess">
-          {range(0,5).map((num)=>(
-              <span
-                  className={statuses[num] === 'correct' ?
-                      'cell correct' : statuses[num] === 'incorrect' ?
-                          'cell incorrect' : statuses[num] === 'misplaced' ?
-                              'cell misplaced' : 'cell'}
+          {range(0,5).map((num) => (
+              <Cell
                   key={num}
-              >
-                  {result ? letters[num] : undefined}
-              </span>
+                  letter={result != null ? result[num].letter : undefined}
+                  status={result != null ? result[num].status : undefined}
+              />
           ))}
       </p>
     );
 }
 
-function getLetters(result) {
-    if (!result) {
-        return []
-    }
+function Cell({ letter, status }) {
+    const className = status ? `cell ${status}` : 'cell'
 
-    return result.map(obj => obj.letter);
-}
-
-function getStatuses(result) {
-    if (!result) {
-        return []
-    }
-
-    return result.map(obj => obj.status);
+    return (
+        <span className={className}>{letter}</span>
+    );
 }
 
 export default Guess;
