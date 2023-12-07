@@ -1,13 +1,14 @@
 import React from 'react';
 
-function GuessInput() {
+function GuessInput({ handleSubmitGuess }) {
     const [guess, setGuess] = React.useState('');
+
 
     // BITNO - prosljeđujemo "event":
     function checkGuess(event) {
         event.preventDefault();
 
-        console.log(guess);
+        handleSubmitGuess(guess);
         setGuess('');
     }
 
